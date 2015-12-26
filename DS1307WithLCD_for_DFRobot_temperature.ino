@@ -11,7 +11,7 @@ float temp = 4.00;  // final temperature fix value(in celsius) for LM61BIZ.
 const int aPin = 3;
 int DS1307_ADDRESS = 0x68;
 byte command;
-
+/*  Crteates an instances for LCD module.  */
 // for DFRobot LCD Shield.
 LiquidCrystal lcd (8, 9, 4, 5, 6, 7);  // (rs, enable, d4, d5, d6, d7), rw pin -> Ground.
 
@@ -23,15 +23,16 @@ void setup() {
   // Serial.println("DS1307RTC Read Test");
   // Serial.println("-------------------");
   // for DFR only.
-  lcd.init(1, 8, 255, 9, 4, 5, 6, 7, 0, 0, 0, 0);
+  lcd.init(1, 8, 255, 9, 4, 5, 6, 7, 0, 0, 0, 0)  //  initialization command for DFRobot's LCD shield only, 
+  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  //  so you can remove this line if you do not want to need this command.
 
   lcd.begin(16, 2);
   lcd.clear();
 }
 
 void loop() {
-  tmElements_t tm;
-  lcd.setCursor(0, 0);
+  tmElements_t tm;  // creates an instances for RTC module.
+  lcd.setCursor(0, 0);  // locate the cursor to x0,y0.
   // read the input on analog pin x:
   int sensorValue = analogRead(aPin);
   //  for(int i=0;i<=sensorMax;i++){
@@ -104,11 +105,15 @@ void loop() {
     delay(300);
   }
 
+// this prints from 0~9 into 00~10.
   void print2digits(int number) {
     if (number >= 0 && number < 10) {
       // Serial.write('0');
     }
     // Serial.print(number);
+    /* if you need a floating point sign digit, you can add this below.
+    Serial.print(".");
+    */
   }
 }
 
@@ -120,7 +125,7 @@ void zeroPadding(int num) {
   }
 }
 void weekPrint(int x) {
-  switch (x) {
+  switch (x) {  // DS1307's weekcode (the number of week) is shown as below.
     case 1:
       lcd.print("Sun.");
       break;
