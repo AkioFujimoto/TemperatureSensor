@@ -3,6 +3,8 @@
 #include <DS1307RTC.h>
 #include <LiquidCrystal.h>
 
+
+
 // declare variables.
 float adj = 0.610;
 float senseVal = 0;
@@ -117,7 +119,7 @@ void loop() {
   }
 }
 
-
+// this is same above, but it is experimental.
 void zeroPadding(int num) {
   if (num >= 0 && num < 10) {
     lcd.print("0");
@@ -200,6 +202,8 @@ void printTime() {
   Serial.print(" smtwtfs= ");
   Serial.println(r_day_of_week, HEX);
 }
+
+//override experiments.
 char zeroPadding(int num) {
   char str[2];
   char result[2];
